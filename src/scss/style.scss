@@ -7,6 +7,7 @@
 
 body{
   background-color: rgb(254,254,242);
+  font-family: 'Tahoma', sans-serif;
 }
 
 .container {
@@ -20,7 +21,7 @@ body{
   }
 }
 
-@mixin tablet {
+@mixin desktop {
   @media (min-width:1280px) {
     @content;
   }
@@ -62,6 +63,33 @@ body{
     font-size: 2rem;
     padding-top: 2rem;
     padding-bottom: 1.5rem;
+  }
+
+  &__todayTag {
+    padding-left: 2rem;
+    font-size: 1.5rem;
+  }
+
+  &__listContainer {
+    justify-content: space-evenly;
+    &--list{
+      display: grid;
+      grid-template-columns: 20% 20% 20% 20% 20%;
+      height: 3rem;
+      justify-items: center;
+      align-items: center;
+      box-shadow: 0 0  3px 0 rgb(0, 0, 0);
+
+      &__checkbox {
+        color: blue;
+        grid-column: 1 / 2;
+        width: 1rem;
+      }
+
+      &__toDoText {
+        grid-column: 2 / 5;
+      }
+    }
   }
 }
 

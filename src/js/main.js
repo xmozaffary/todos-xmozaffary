@@ -1,10 +1,9 @@
 import "./../scss/style.scss";
 const userImgUrl =
   "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
-
 const body = document.querySelector("body");
 const d = new Date();
-
+// börjar med header taggar
 const header = document.createElement("header");
 const profileContaner = document.createElement("div");
 const userName = document.createElement("h1");
@@ -26,7 +25,8 @@ header.appendChild(profileContaner);
 profileContaner.appendChild(userName);
 profileContaner.appendChild(userImg);
 header.appendChild(whatIsGingOn);
-
+// skapar en array av alla månader för att printa de
+// när man anropar date.getmonth() metoden så för man en siffra feån 0-11 och inte namn på månaderna, alltså man får en index
 const months = [
   "Januari",
   "Februari",
@@ -41,6 +41,8 @@ const months = [
   "November",
   "December",
 ];
+
+//början av main (tag)
 
 let gMonth = months[d.getMonth()];
 
@@ -68,25 +70,100 @@ mainContent.appendChild(monthContainer);
 weeksContainer.appendChild(dayContainer);
 monthContainer.appendChild(dateContainer);
 
+//en array av alla veckanss dagar
 const days = ["Mån", "Tis", "Ons", "Tors", "Fre", "Lör", "Sön"];
+// loopar genom listan och visar i sidan
 for (let i = 0; i < days.length; i++) {
   const dayLi = document.createElement("li");
   dayLi.innerText = days[i];
 
   dayLi.className = "weeksContainer__days--day";
   dayContainer.appendChild(dayLi);
-
+  // if satsen hittagr dagens index och den indexen får en class
   if (i + 1 == d.getDay()) {
     dayLi.classList.add("next");
   }
-
+  //fellll, måste fixas
   const dateLi = document.createElement("li");
   dateLi.innerText = d.getDate();
   dateContainer.appendChild(dateLi);
 }
 
 console.log(d.getDate());
-
+// ritar en linje under datumen
 const drawLine = document.createElement("div");
 drawLine.classList.add("line");
 mainContent.appendChild(drawLine);
+
+// Kriver idag
+const todayTag = document.createElement("h2");
+todayTag.innerText = "Idag";
+todayTag.className = "mainContent__todayTag";
+mainContent.appendChild(todayTag);
+
+// skpar en behållare för hela list i main
+const listContainer = document.createElement("div");
+listContainer.className = "mainContent__listContainer";
+mainContent.appendChild(listContainer);
+
+// gör en mall på hur ubgifär hur en lista ska se ut
+class TheList {
+  isDone;
+  whatToDo;
+
+  constructor(isDone, whatToDO) {
+    this.isDone = isDone;
+    this.whatToDo = whatToDO;
+  }
+}
+
+// skapar två nya lista för att exprementera
+const firstList = new TheList(false, "idag ska jag göra klar min ");
+const sList = new TheList(false, "idag ska jag göra ...");
+
+let lists = [firstList, sList];
+const doneLists = [];
+
+for (let i = 0; i < lists.length; i++) {
+  const list = document.createElement("div");
+  const checkbox = document.createElement("input");
+  const toDoText = document.createElement("p");
+
+  checkbox.addEventListener("click", () => {
+    //console.log(lists[i]);
+    doneLists.push(lists[i]);
+    createHtml();
+  });
+  checkbox.type = "checkbox";
+  toDoText.innerText = lists[i].whatToDo;
+  checkbox.checked = lists[i].isDone;
+
+  list.className = "mainContent__listContainer--list";
+  checkbox.className = "mainContent__listContainer--list__checkbox";
+  toDoText.className = "mainContent__listContainer--list__toDoText";
+
+  listContainer.appendChild(list);
+  list.appendChild(checkbox);
+  list.appendChild(toDoText);
+}
+
+const createHtml = () => {
+  for (let i = 0; i < doneLists.length; i++) {
+    listContainer.innerHTML = "";
+    const list = document.createElement("div");
+    const checkbox = document.createElement("input");
+    const toDoText = document.createElement("p");
+
+    checkbox.type = "checkbox";
+    toDoText.innerText = lists[i].whatToDo;
+    checkbox.checked = true;
+
+    list.className = "mainContent__listContainer--list";
+    checkbox.className = "mainContent__listContainer--list__checkbox";
+    toDoText.className = "mainContent__listContainer--list__toDoText";
+
+    listContainer.appendChild(list);
+    list.appendChild(checkbox);
+    list.appendChild(toDoText);
+  }
+};
