@@ -1,4 +1,7 @@
 import "./../scss/style.scss";
+import { TheList } from "./models/TheList";
+/* import { doneListHtml } from "./models/doneListHtml"; */
+
 const userImgUrl =
   "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
 const body = document.querySelector("body");
@@ -89,7 +92,6 @@ for (let i = 0; i < days.length; i++) {
   dateContainer.appendChild(dateLi);
 }
 
-console.log(d.getDate());
 // ritar en linje under datumen
 const drawLine = document.createElement("div");
 drawLine.classList.add("line");
@@ -106,50 +108,47 @@ const listContainer = document.createElement("div");
 listContainer.className = "mainContent__listContainer";
 mainContent.appendChild(listContainer);
 
-// gör en mall på hur ubgifär hur en lista ska se ut
-class TheList {
-  isDone;
-  whatToDo;
-
-  constructor(isDone, whatToDO) {
-    this.isDone = isDone;
-    this.whatToDo = whatToDO;
-  }
-}
-
 // skapar två nya lista för att exprementera
 const firstList = new TheList(false, "idag ska jag göra klar min ");
 const sList = new TheList(false, "idag ska jag göra ...");
 
 let lists = [firstList, sList];
 const doneLists = [];
+const createNewElemt = () => {
+  for (let i = 0; i < lists.length; i++) {
+    const list = document.createElement("div");
+    const checkbox = document.createElement("input");
+    const toDoText = document.createElement("p");
 
-for (let i = 0; i < lists.length; i++) {
-  const list = document.createElement("div");
-  const checkbox = document.createElement("input");
-  const toDoText = document.createElement("p");
+    checkbox.addEventListener("click", () => {
+      doneLists.push(lists);
+      //lists.splice(i, 1);
+      doneListHtml();
+      //createNewElemt();
+    });
 
-  checkbox.addEventListener("click", () => {
-    //console.log(lists[i]);
-    doneLists.push(lists[i]);
-    createHtml();
-  });
-  checkbox.type = "checkbox";
-  toDoText.innerText = lists[i].whatToDo;
-  checkbox.checked = lists[i].isDone;
+    checkbox.type = "checkbox";
+    toDoText.innerText = lists[i].whatToDo;
+    checkbox.checked = lists[i].isDone;
 
-  list.className = "mainContent__listContainer--list";
-  checkbox.className = "mainContent__listContainer--list__checkbox";
-  toDoText.className = "mainContent__listContainer--list__toDoText";
+    list.className = "mainContent__listContainer--list";
+    checkbox.className = "mainContent__listContainer--list__checkbox";
+    toDoText.className = "mainContent__listContainer--list__toDoText";
 
-  listContainer.appendChild(list);
-  list.appendChild(checkbox);
-  list.appendChild(toDoText);
-}
+    listContainer.appendChild(list);
+    list.appendChild(checkbox);
+    list.appendChild(toDoText);
+  }
+};
+createNewElemt();
 
-const createHtml = () => {
+const doneListContainer = document.createElement("div");
+doneListContainer.className = "mainContent__doneListContainer";
+mainContent.appendChild(doneListContainer);
+
+const doneListHtml = () => {
+  doneListContainer.innerHTML = "";
   for (let i = 0; i < doneLists.length; i++) {
-    listContainer.innerHTML = "";
     const list = document.createElement("div");
     const checkbox = document.createElement("input");
     const toDoText = document.createElement("p");
@@ -162,7 +161,7 @@ const createHtml = () => {
     checkbox.className = "mainContent__listContainer--list__checkbox";
     toDoText.className = "mainContent__listContainer--list__toDoText";
 
-    listContainer.appendChild(list);
+    doneListContainer.appendChild(list);
     list.appendChild(checkbox);
     list.appendChild(toDoText);
   }
