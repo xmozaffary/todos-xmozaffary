@@ -1,3 +1,4 @@
+import { Value } from "sass";
 import "./../scss/style.scss";
 import { TheList } from "./models/TheList";
 /* import { doneListHtml } from "./models/doneListHtml"; */
@@ -74,7 +75,7 @@ weeksContainer.appendChild(dayContainer);
 monthContainer.appendChild(dateContainer);
 
 //en array av alla veckanss dagar
-const days = ["Mån", "Tis", "Ons", "Tors", "Fre", "Lör", "Sön"];
+const days = ["Sön", "Mån", "Tis", "Ons", "Tors", "Fre", "Lör"];
 // loopar genom listan och visar i sidan
 for (let i = 0; i < days.length; i++) {
   const dayLi = document.createElement("li");
@@ -83,7 +84,7 @@ for (let i = 0; i < days.length; i++) {
   dayLi.className = "weeksContainer__days--day";
   dayContainer.appendChild(dayLi);
   // if satsen hittagr dagens index och den indexen får en class
-  if (i + 1 == d.getDay()) {
+  if (i == d.getDay()) {
     dayLi.classList.add("next");
   }
   //fellll, måste fixas
@@ -111,6 +112,42 @@ mainContent.appendChild(todayDivTag);
 todayDivTag.appendChild(todayH2Tag);
 todayDivTag.appendChild(divBtnTag);
 
+divBtnTag.addEventListener("click", () => {
+  const divs = document.createElement("div");
+  divs.className = "divs";
+  mainContent.appendChild(divs);
+
+  const labelTag = document.createElement("label");
+  const inputTag = document.createElement("input");
+  const buttonTag = document.createElement("button");
+
+  buttonTag.setAttribute("type", "button");
+  labelTag.setAttribute("for", "name");
+  inputTag.setAttribute("type", "text");
+  inputTag.setAttribute("id", "name");
+
+  labelTag.innerHTML = "todo namn: ";
+  buttonTag.innerHTML = "okej";
+
+  divs.appendChild(labelTag);
+  divs.appendChild(inputTag);
+  divs.appendChild(buttonTag);
+
+  buttonTag.addEventListener("click", () => {
+    const inutValue = inputTag.value;
+    var userList = new TheList(false, inutValue);
+    lists.push(userList);
+    createNewElemt();
+  });
+
+  const deleteDivs = document.createElement("div");
+  deleteDivs.className = "divs__deleteDivs";
+  divs.appendChild(deleteDivs);
+
+  deleteDivs.addEventListener("click", () => {
+    divs.remove();
+  });
+});
 // skpar en behållare för hela list i main
 const listContainer = document.createElement("div");
 listContainer.className = "mainContent__listContainer";
@@ -153,19 +190,6 @@ const createNewElemt = () => {
 };
 createNewElemt();
 
-divBtnTag.addEventListener("click", () => {
-  const divs = document.createElement("div");
-  divs.className = "divs";
-  mainContent.appendChild(divs);
-  const deleteDivs = document.createElement("div");
-  deleteDivs.className = "divs__deleteDivs";
-  divs.appendChild(deleteDivs);
-
-  deleteDivs.addEventListener("click", () => {
-    divs.remove();
-  });
-});
-
 const doneLisTitle = document.createElement("p");
 doneLisTitle.className = "mainContent__doneListContainer--title";
 doneLisTitle.innerText = "Saker som är klar:";
@@ -185,6 +209,13 @@ const doneListHtml = () => {
     const checkbox = document.createElement("input");
     const toDoText = document.createElement("p");
 
+    checkbox.addEventListener("click", () => {
+      lists.push(doneLists[i]);
+      doneLists.splice(i, 1);
+
+      createNewElemt();
+      doneListHtml();
+    });
     checkbox.type = "checkbox";
     toDoText.innerText = doneLists[i].whatToDo;
     checkbox.checked = true;
