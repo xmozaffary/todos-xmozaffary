@@ -97,11 +97,19 @@ const drawLine = document.createElement("div");
 drawLine.classList.add("line");
 mainContent.appendChild(drawLine);
 
-// Kriver idag
-const todayTag = document.createElement("h2");
-todayTag.innerText = "Idag";
-todayTag.className = "mainContent__todayTag";
-mainContent.appendChild(todayTag);
+// skriver idag
+const todayDivTag = document.createElement("div");
+const divBtnTag = document.createElement("div");
+const todayH2Tag = document.createElement("h2");
+
+todayDivTag.className = "mainContent__todayDivTag";
+divBtnTag.className = "mainContent__todayDivTag--divBtnTag";
+todayH2Tag.innerText = "Idag";
+divBtnTag.innerText = "done";
+
+mainContent.appendChild(todayDivTag);
+todayDivTag.appendChild(todayH2Tag);
+todayDivTag.appendChild(divBtnTag);
 
 // skpar en behållare för hela list i main
 const listContainer = document.createElement("div");
@@ -114,17 +122,20 @@ const sList = new TheList(false, "idag ska jag göra ...");
 
 let lists = [firstList, sList];
 const doneLists = [];
+console.log(doneLists);
 const createNewElemt = () => {
+  listContainer.innerHTML = "";
   for (let i = 0; i < lists.length; i++) {
     const list = document.createElement("div");
     const checkbox = document.createElement("input");
     const toDoText = document.createElement("p");
 
     checkbox.addEventListener("click", () => {
-      doneLists.push(lists);
-      //lists.splice(i, 1);
+      doneLists.push(lists[i]);
+      lists.splice(i, 1);
+
+      createNewElemt();
       doneListHtml();
-      //createNewElemt();
     });
 
     checkbox.type = "checkbox";
@@ -142,19 +153,40 @@ const createNewElemt = () => {
 };
 createNewElemt();
 
+divBtnTag.addEventListener("click", () => {
+  const divs = document.createElement("div");
+  divs.className = "divs";
+  mainContent.appendChild(divs);
+  const deleteDivs = document.createElement("div");
+  deleteDivs.className = "divs__deleteDivs";
+  divs.appendChild(deleteDivs);
+
+  deleteDivs.addEventListener("click", () => {
+    divs.remove();
+  });
+});
+
+const doneLisTitle = document.createElement("p");
+doneLisTitle.className = "mainContent__doneListContainer--title";
+doneLisTitle.innerText = "Saker som är klar:";
+mainContent.appendChild(doneLisTitle);
+
 const doneListContainer = document.createElement("div");
+
 doneListContainer.className = "mainContent__doneListContainer";
+
 mainContent.appendChild(doneListContainer);
 
 const doneListHtml = () => {
   doneListContainer.innerHTML = "";
   for (let i = 0; i < doneLists.length; i++) {
+    console.log(doneLists[i]);
     const list = document.createElement("div");
     const checkbox = document.createElement("input");
     const toDoText = document.createElement("p");
 
     checkbox.type = "checkbox";
-    toDoText.innerText = lists[i].whatToDo;
+    toDoText.innerText = doneLists[i].whatToDo;
     checkbox.checked = true;
 
     list.className = "mainContent__listContainer--list";

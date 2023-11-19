@@ -57,6 +57,22 @@ body{
   }
 }
 
+.divs {
+  width: 80%;
+  height: 70%;
+  background-color: aqua;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+
+  &__deleteDivs {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+  }
+
+}
+
 .mainContent {
   &__month {
     text-align: center;
@@ -65,9 +81,22 @@ body{
     padding-bottom: 1.5rem;
   }
 
-  &__todayTag {
-    padding-left: 2rem;
-    font-size: 1.5rem;
+  &__todayDivTag {
+    display: flex;
+    width: 100vw;
+    padding-bottom: 1rem;
+    justify-content: space-evenly;
+    &--divBtnTag {
+      display: flex;
+      width: 80px;
+      height: 40px;
+      background-color: red;
+      text-align: right;
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+
   }
 
   &__listContainer {
@@ -90,6 +119,18 @@ body{
         grid-column: 2 / 5;
       }
     }
+  }
+  &__doneListContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
+    margin-top: 3rem;
+  }
+  &--title {
+    width: 3rem;
+    height: 3rem;
+    background-color: black;
+    color: aqua;
   }
 }
 
