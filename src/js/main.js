@@ -1,8 +1,14 @@
-import { Value } from "sass";
 import "./../scss/style.scss";
 import { TheList } from "./models/TheList";
-/* import { doneListHtml } from "./models/doneListHtml"; */
 
+/* import { doneListHtml } from "./models/doneListHtml";
+  en if sats behövs för man ska inte kunna lägga till en todo list utan namn
+  datumen fungerer inte som det ska
+  om det finns tid lägga till en button så att man kan ta bort en lista när man klickeer på den
+  style för tablet och desktop
+
+  VIKTIG: kunna sortera listan??? vad menas med det?
+*/
 const userImgUrl =
   "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
 const body = document.querySelector("body");
@@ -16,7 +22,7 @@ const whatIsGingOn = document.createElement("p");
 
 userImg.src = userImgUrl;
 userName.innerText = "Hej Ena";
-whatIsGingOn.innerText = "Vad händer?";
+whatIsGingOn.innerText = "Nu kör vi";
 
 header.className = "headerContainer";
 profileContaner.className = "headerContainer__content";
@@ -105,8 +111,8 @@ const todayH2Tag = document.createElement("h2");
 
 todayDivTag.className = "mainContent__todayDivTag";
 divBtnTag.className = "mainContent__todayDivTag--divBtnTag";
-todayH2Tag.innerText = "Idag";
-divBtnTag.innerText = "done";
+todayH2Tag.innerText = d.getDate() + " " + days[d.getDay()];
+divBtnTag.innerText = "lägga till lista";
 
 mainContent.appendChild(todayDivTag);
 todayDivTag.appendChild(todayH2Tag);
@@ -122,11 +128,16 @@ divBtnTag.addEventListener("click", () => {
   const buttonTag = document.createElement("button");
 
   buttonTag.setAttribute("type", "button");
+  buttonTag.setAttribute("class", "divs__btnTag");
+
   labelTag.setAttribute("for", "name");
+  labelTag.setAttribute("class", "divs__labelTag");
+
   inputTag.setAttribute("type", "text");
   inputTag.setAttribute("id", "name");
+  inputTag.setAttribute("class", "divs__inputTag");
 
-  labelTag.innerHTML = "todo namn: ";
+  labelTag.innerHTML = "Ange namn på det som du vill göra! ";
   buttonTag.innerHTML = "okej";
 
   divs.appendChild(labelTag);
@@ -140,8 +151,9 @@ divBtnTag.addEventListener("click", () => {
     createNewElemt();
   });
 
-  const deleteDivs = document.createElement("div");
+  const deleteDivs = document.createElement("img"); // variablen heter div för att i början var det en div sen ändrade jag till img
   deleteDivs.className = "divs__deleteDivs";
+  deleteDivs.src = "./../images/x.png";
   divs.appendChild(deleteDivs);
 
   deleteDivs.addEventListener("click", () => {
