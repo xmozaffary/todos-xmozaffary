@@ -6,7 +6,7 @@
 }
 
 body{
-  background-color: rgb(254,254,242);
+  background-color: rgb(166, 167, 252);
   font-family: 'Tahoma', sans-serif;
 }
 
@@ -23,38 +23,29 @@ body{
 }
 
 
-.headerContainer {
+.header {
   box-shadow: 0 0  3px 0 rgb(0, 0, 0);
-  &__content {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    justify-items: center;
-    align-items: cen;
-
-    &--name {
-      display: flex;
-      align-items: center;
-      text-align: left;
-      padding-left: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+    &__name {
       font-size: 1.5rem;
     }
-    &--img {
-      width: 40px;
-      display: flex;
-      align-items: center;
-      padding-top: 1rem;
+    &__img {
+      width: 4rem;
     }
-
-    &--text {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      font-weight: bold;
-      text-align: center;
+    &__humMenu {
+      display: grid;
+      gap: 0.5rem;
+      &--icon {
+        width: 2.5rem;
+        height: 0.5rem;
+        background-color: rgb(105, 107, 252);
+        border-radius: 0.5rem;
+      }
     }
   }
   @include tablet {
-    background-color: blue;
-  }
 }
 
 .divs {
@@ -127,6 +118,7 @@ body{
 
   &__listContainer {
     justify-content: space-evenly;
+    align-items: center;
     &--list{
       display: grid;
       grid-template-columns: 20% 20% 20% 20% 20%;
@@ -136,11 +128,9 @@ body{
       box-shadow: 0 0  3px 0 rgb(0, 0, 0);
 
       &__checkbox {
-        color: blue;
         grid-column: 1 / 2;
         width: 1rem;
       }
-
       &__toDoText {
         grid-column: 2 / 5;
       }
@@ -149,14 +139,12 @@ body{
   &__doneListContainer {
     width: 100vw;
     height: 100vh;
-    background-color: red;
-    margin-top: 3rem;
-  }
-  &--title {
-    width: 3rem;
-    height: 3rem;
-    background-color: black;
-    color: aqua;
+    &--title {
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
   }
 }
 
@@ -178,10 +166,32 @@ body{
   border-radius: 50%;
 }
 
-.line {
-  height: 2px;
-  background-color: black;
-  box-shadow: 2px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+
+
+.humMenuContent {
+  position: fixed;
+  width: 15rem;
+  height: 30rem;
+  top: 0;
+  left: 0;
+  background-color: rgb(105, 107, 252);
+  border-radius: 0 0 12px 0;
+  box-shadow: 0 0  10px 0 rgb(0, 0, 0);
+  &__remove{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 1%;
+    left: 80%;
+  }
+  &__makeToDo {
+    display: flex;
+    &--icon {
+      width: 1.5rem;
+    }
+    &--title {
+      font-size: 1rem;
+    }
+  }
 }

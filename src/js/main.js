@@ -1,40 +1,118 @@
 import "./../scss/style.scss";
+import { headerHtml } from "./headerhtml";
 import { TheList } from "./models/TheList";
-
-/* import { doneListHtml } from "./models/doneListHtml";
-  en if sats behövs för man ska inte kunna lägga till en todo list utan namn
-  datumen fungerer inte som det ska
-  om det finns tid lägga till en button så att man kan ta bort en lista när man klickeer på den
-  style för tablet och desktop
-
-  VIKTIG: kunna sortera listan??? vad menas med det?
-*/
-const userImgUrl =
+/* const userImgUrl =
   "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
+const xImg =
+  "https://img.freepik.com/premium-vector/xgrunge-letter-x-vector-cross-sign-hand-drawn-x_546559-33.jpg";
+const makeIcon =
+  "https://www.freeiconspng.com/thumbs/list-icon/to-do-list-icon-buy-this-icon-for--0-48-1.png"; */
 const body = document.querySelector("body");
 const d = new Date();
+/* 
 // börjar med header taggar
 const header = document.createElement("header");
-const profileContaner = document.createElement("div");
+const humMenu = document.createElement("div");
 const userName = document.createElement("h1");
 const userImg = document.createElement("img");
-const whatIsGingOn = document.createElement("p");
 
-userImg.src = userImgUrl;
-userName.innerText = "Hej Ena";
-whatIsGingOn.innerText = "Nu kör vi";
-
-header.className = "headerContainer";
-profileContaner.className = "headerContainer__content";
-userName.className = "headerContainer__content--name";
-userImg.setAttribute("class", "headerContainer__content--img");
-whatIsGingOn.className = "headerContainer__content--text";
+userImg.src =
+  "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
+userName.innerText = "HEJ NAME";
+humMenu.className = "header__humMenu";
+header.className = "header";
+userName.className = "header__name";
+userImg.setAttribute("class", "header__img");
 
 body.appendChild(header);
-header.appendChild(profileContaner);
-profileContaner.appendChild(userName);
-profileContaner.appendChild(userImg);
-header.appendChild(whatIsGingOn);
+header.appendChild(humMenu);
+header.appendChild(userName);
+header.appendChild(userImg);
+for (let i = 0; i < 3; i++) {
+  const humMenuIcon = document.createElement("div");
+  humMenuIcon.className = "header__humMenu--icon";
+  humMenu.appendChild(humMenuIcon);
+} 
+
+humMenu.addEventListener("click", () => {
+  const humMenuContent = document.createElement("section");
+  const humMenuContentRemove = document.createElement("img");
+  const makeToDo = document.createElement("div");
+  const makeToDoIcon = document.createElement("img");
+  const makeToDoTitle = document.createElement("h2");
+
+  humMenuContentRemove.src =
+    "https://img.freepik.com/premium-vector/xgrunge-letter-x-vector-cross-sign-hand-drawn-x_546559-33.jpg";
+  makeToDoTitle.innerText = "lägga till lista";
+  makeToDoIcon.src =
+    "https://www.freeiconspng.com/thumbs/list-icon/to-do-list-icon-buy-this-icon-for--0-48-1.png";
+
+  body.appendChild(humMenuContent);
+  humMenuContent.appendChild(humMenuContentRemove);
+  humMenuContent.appendChild(makeToDo);
+  makeToDo.appendChild(makeToDoIcon);
+  makeToDo.appendChild(makeToDoTitle);
+
+  humMenuContent.className = "humMenuContent";
+  humMenuContentRemove.className = "humMenuContent__remove";
+  makeToDo.className = "humMenuContent__makeToDo";
+  makeToDoIcon.className = "humMenuContent__makeToDo--icon";
+  makeToDoTitle.className = "humMenuContent__makeToDo--title";
+
+  makeToDo.addEventListener("click", () => {
+    humMenuContent.remove();
+    const divs = document.createElement("div");
+    divs.className = "divs";
+    mainContent.appendChild(divs);
+
+    const labelTag = document.createElement("label");
+    const inputTag = document.createElement("input");
+    const buttonTag = document.createElement("button");
+
+    buttonTag.setAttribute("type", "button");
+    buttonTag.setAttribute("class", "divs__btnTag");
+
+    labelTag.setAttribute("for", "name");
+    labelTag.setAttribute("class", "divs__labelTag");
+
+    inputTag.setAttribute("type", "text");
+    inputTag.setAttribute("id", "name");
+    inputTag.setAttribute("class", "divs__inputTag");
+
+    labelTag.innerHTML = "Ange namn på det som du vill göra! ";
+    buttonTag.innerHTML = "okej";
+
+    divs.appendChild(labelTag);
+    divs.appendChild(inputTag);
+    divs.appendChild(buttonTag);
+
+    buttonTag.addEventListener("click", () => {
+      const inutValue = inputTag.value;
+      var userList = new TheList(false, inutValue);
+      lists.push(userList);
+      createNewElemt();
+    });
+
+    const deleteDivs = document.createElement("img");
+    deleteDivs.className = "divs__deleteDivs";
+    deleteDivs.src = xImg;
+    divs.appendChild(deleteDivs);
+
+    deleteDivs.addEventListener("click", () => {
+      divs.remove();
+    });
+  });
+
+  humMenuContentRemove.addEventListener("click", () => {
+    humMenuContent.remove();
+  });
+});
+*/
+const firstList = new TheList(false, "b idag ska jag göra klar min ");
+const sList = new TheList(false, "a idag ska jag göra ...");
+
+let lists = [firstList, sList];
+headerHtml(lists);
 // skapar en array av alla månader för att printa de
 // när man anropar date.getmonth() metoden så för man en siffra feån 0-11 och inte namn på månaderna, alltså man får en index
 const months = [
@@ -54,31 +132,26 @@ const months = [
 
 //början av main (tag)
 
-let gMonth = months[d.getMonth()];
-
-const mainContent = document.createElement("main");
-const month = document.createElement("h1");
-
-month.innerText = gMonth;
-mainContent.className = "mainContent";
-month.className = "mainContent__month";
-body.appendChild(mainContent);
-mainContent.appendChild(month);
-
+let getMonthName = months[d.getMonth()];
+export var mainContent = document.createElement("main");
+const dateContainer = document.createElement("section");
+const monthName = document.createElement("h1");
 const weeksContainer = document.createElement("div");
-const monthContainer = document.createElement("div");
 const dayContainer = document.createElement("ul");
-const dateContainer = document.createElement("ul");
 
-weeksContainer.className = "weeksContainer";
-monthContainer.className = "weeksContainer";
+monthName.innerText = getMonthName;
+
+mainContent.className = "mainContent";
+dateContainer.className = "mainContent__dateContainer";
+monthName.className = "dateContainer__monthName";
+weeksContainer.className = "dateContainer__weeksContainer";
 dayContainer.className = "weeksContainer__days";
-dateContainer.className = "weeksContainer__days";
 
-mainContent.appendChild(weeksContainer);
-mainContent.appendChild(monthContainer);
+body.appendChild(mainContent);
+mainContent.appendChild(dateContainer);
+dateContainer.appendChild(monthName);
+dateContainer.appendChild(weeksContainer);
 weeksContainer.appendChild(dayContainer);
-monthContainer.appendChild(dateContainer);
 
 //en array av alla veckanss dagar
 const days = ["Sön", "Mån", "Tis", "Ons", "Tors", "Fre", "Lör"];
@@ -93,29 +166,18 @@ for (let i = 0; i < days.length; i++) {
   if (i == d.getDay()) {
     dayLi.classList.add("next");
   }
-  //fellll, måste fixas
-  const dateLi = document.createElement("li");
-  dateLi.innerText = d.getDate();
-  dateContainer.appendChild(dateLi);
 }
 
-// ritar en linje under datumen
-const drawLine = document.createElement("div");
-drawLine.classList.add("line");
-mainContent.appendChild(drawLine);
-
 // skriver idag
-const todayDivTag = document.createElement("div");
+/* const todayDivTag = document.createElement("div");
 const divBtnTag = document.createElement("div");
-const todayH2Tag = document.createElement("h2");
 
-todayDivTag.className = "mainContent__todayDivTag";
+//todayDivTag.className = "mainContent__todayDivTag";
 divBtnTag.className = "mainContent__todayDivTag--divBtnTag";
-todayH2Tag.innerText = d.getDate() + " " + days[d.getDay()];
 divBtnTag.innerText = "lägga till lista";
 
 mainContent.appendChild(todayDivTag);
-todayDivTag.appendChild(todayH2Tag);
+//todayDivTag.appendChild(todayH2Tag);
 todayDivTag.appendChild(divBtnTag);
 
 divBtnTag.addEventListener("click", () => {
@@ -153,26 +215,22 @@ divBtnTag.addEventListener("click", () => {
 
   const deleteDivs = document.createElement("img"); // variablen heter div för att i början var det en div sen ändrade jag till img
   deleteDivs.className = "divs__deleteDivs";
-  deleteDivs.src = "./../images/x.png";
+  deleteDivs.src = xImg;
   divs.appendChild(deleteDivs);
 
   deleteDivs.addEventListener("click", () => {
     divs.remove();
   });
-});
+}); */
 // skpar en behållare för hela list i main
 const listContainer = document.createElement("div");
 listContainer.className = "mainContent__listContainer";
 mainContent.appendChild(listContainer);
 
 // skapar två nya lista för att exprementera
-const firstList = new TheList(false, "idag ska jag göra klar min ");
-const sList = new TheList(false, "idag ska jag göra ...");
-
-let lists = [firstList, sList];
 const doneLists = [];
 console.log(doneLists);
-const createNewElemt = () => {
+export const createNewElemt = () => {
   listContainer.innerHTML = "";
   for (let i = 0; i < lists.length; i++) {
     const list = document.createElement("div");
@@ -182,7 +240,6 @@ const createNewElemt = () => {
     checkbox.addEventListener("click", () => {
       doneLists.push(lists[i]);
       lists.splice(i, 1);
-
       createNewElemt();
       doneListHtml();
     });
@@ -200,8 +257,9 @@ const createNewElemt = () => {
     list.appendChild(toDoText);
   }
 };
+console.log("Före anropet:", lists);
 createNewElemt();
-
+console.log("Efter anropet:", lists);
 const doneLisTitle = document.createElement("p");
 doneLisTitle.className = "mainContent__doneListContainer--title";
 doneLisTitle.innerText = "Saker som är klar:";
