@@ -53,46 +53,47 @@ export const headerHtml = (lists) => {
 
     makeToDo.addEventListener("click", () => {
       humMenuContent.remove();
-      const divs = document.createElement("div");
-      divs.className = "divs";
-      document.body.appendChild(divs);
+      const getToDoFromUser = document.createElement("div");
+      getToDoFromUser.className = "getToDoFromUser";
+      document.body.appendChild(getToDoFromUser);
 
       const labelTag = document.createElement("label");
       const inputTag = document.createElement("input");
       const buttonTag = document.createElement("button");
 
       buttonTag.setAttribute("type", "button");
-      buttonTag.setAttribute("class", "divs__btnTag");
+      buttonTag.setAttribute("class", "getToDoFromUser__btn");
 
       labelTag.setAttribute("for", "name");
-      labelTag.setAttribute("class", "divs__labelTag");
+      labelTag.setAttribute("class", "getToDoFromUser__label");
 
       inputTag.setAttribute("type", "text");
       inputTag.setAttribute("id", "name");
-      inputTag.setAttribute("class", "divs__inputTag");
+      inputTag.setAttribute("class", "getToDoFromUser__input");
 
-      labelTag.innerHTML = "Ange namn på det som du vill göra! ";
+      labelTag.innerHTML = "Vad vill du göra? ";
       buttonTag.innerHTML = "okej";
 
-      divs.appendChild(labelTag);
-      divs.appendChild(inputTag);
-      divs.appendChild(buttonTag);
+      getToDoFromUser.appendChild(labelTag);
+      getToDoFromUser.appendChild(inputTag);
+      getToDoFromUser.appendChild(buttonTag);
 
       buttonTag.addEventListener("click", () => {
         const inutValue = inputTag.value;
         var userList = new TheList(false, inutValue);
         lists.push(userList);
+        lists.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
         createNewElemt();
       });
 
       const deleteDivs = document.createElement("img");
-      deleteDivs.className = "divs__deleteDivs";
+      deleteDivs.className = "getToDoFromUser__deleteDivs";
       deleteDivs.src =
         "https://img.freepik.com/premium-vector/xgrunge-letter-x-vector-cross-sign-hand-drawn-x_546559-33.jpg";
-      divs.appendChild(deleteDivs);
+      getToDoFromUser.appendChild(deleteDivs);
 
       deleteDivs.addEventListener("click", () => {
-        divs.remove();
+        getToDoFromUser.remove();
       });
     });
 

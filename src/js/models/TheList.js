@@ -3,8 +3,8 @@ export class TheList {
   isDone;
   whatToDo;
 
-  constructor(isDone, whatToDO) {
+  constructor(isDone, whatToDo) {
     this.isDone = isDone;
-    this.whatToDo = whatToDO;
+    this.whatToDo = whatToDo;
   }
 }

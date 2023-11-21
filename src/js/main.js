@@ -1,117 +1,16 @@
 import "./../scss/style.scss";
 import { headerHtml } from "./headerhtml";
 import { TheList } from "./models/TheList";
-/* const userImgUrl =
-  "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
-const xImg =
-  "https://img.freepik.com/premium-vector/xgrunge-letter-x-vector-cross-sign-hand-drawn-x_546559-33.jpg";
-const makeIcon =
-  "https://www.freeiconspng.com/thumbs/list-icon/to-do-list-icon-buy-this-icon-for--0-48-1.png"; */
+
 const body = document.querySelector("body");
 const d = new Date();
-/* 
-// börjar med header taggar
-const header = document.createElement("header");
-const humMenu = document.createElement("div");
-const userName = document.createElement("h1");
-const userImg = document.createElement("img");
 
-userImg.src =
-  "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
-userName.innerText = "HEJ NAME";
-humMenu.className = "header__humMenu";
-header.className = "header";
-userName.className = "header__name";
-userImg.setAttribute("class", "header__img");
-
-body.appendChild(header);
-header.appendChild(humMenu);
-header.appendChild(userName);
-header.appendChild(userImg);
-for (let i = 0; i < 3; i++) {
-  const humMenuIcon = document.createElement("div");
-  humMenuIcon.className = "header__humMenu--icon";
-  humMenu.appendChild(humMenuIcon);
-} 
-
-humMenu.addEventListener("click", () => {
-  const humMenuContent = document.createElement("section");
-  const humMenuContentRemove = document.createElement("img");
-  const makeToDo = document.createElement("div");
-  const makeToDoIcon = document.createElement("img");
-  const makeToDoTitle = document.createElement("h2");
-
-  humMenuContentRemove.src =
-    "https://img.freepik.com/premium-vector/xgrunge-letter-x-vector-cross-sign-hand-drawn-x_546559-33.jpg";
-  makeToDoTitle.innerText = "lägga till lista";
-  makeToDoIcon.src =
-    "https://www.freeiconspng.com/thumbs/list-icon/to-do-list-icon-buy-this-icon-for--0-48-1.png";
-
-  body.appendChild(humMenuContent);
-  humMenuContent.appendChild(humMenuContentRemove);
-  humMenuContent.appendChild(makeToDo);
-  makeToDo.appendChild(makeToDoIcon);
-  makeToDo.appendChild(makeToDoTitle);
-
-  humMenuContent.className = "humMenuContent";
-  humMenuContentRemove.className = "humMenuContent__remove";
-  makeToDo.className = "humMenuContent__makeToDo";
-  makeToDoIcon.className = "humMenuContent__makeToDo--icon";
-  makeToDoTitle.className = "humMenuContent__makeToDo--title";
-
-  makeToDo.addEventListener("click", () => {
-    humMenuContent.remove();
-    const divs = document.createElement("div");
-    divs.className = "divs";
-    mainContent.appendChild(divs);
-
-    const labelTag = document.createElement("label");
-    const inputTag = document.createElement("input");
-    const buttonTag = document.createElement("button");
-
-    buttonTag.setAttribute("type", "button");
-    buttonTag.setAttribute("class", "divs__btnTag");
-
-    labelTag.setAttribute("for", "name");
-    labelTag.setAttribute("class", "divs__labelTag");
-
-    inputTag.setAttribute("type", "text");
-    inputTag.setAttribute("id", "name");
-    inputTag.setAttribute("class", "divs__inputTag");
-
-    labelTag.innerHTML = "Ange namn på det som du vill göra! ";
-    buttonTag.innerHTML = "okej";
-
-    divs.appendChild(labelTag);
-    divs.appendChild(inputTag);
-    divs.appendChild(buttonTag);
-
-    buttonTag.addEventListener("click", () => {
-      const inutValue = inputTag.value;
-      var userList = new TheList(false, inutValue);
-      lists.push(userList);
-      createNewElemt();
-    });
-
-    const deleteDivs = document.createElement("img");
-    deleteDivs.className = "divs__deleteDivs";
-    deleteDivs.src = xImg;
-    divs.appendChild(deleteDivs);
-
-    deleteDivs.addEventListener("click", () => {
-      divs.remove();
-    });
-  });
-
-  humMenuContentRemove.addEventListener("click", () => {
-    humMenuContent.remove();
-  });
-});
-*/
-const firstList = new TheList(false, "b idag ska jag göra klar min ");
-const sList = new TheList(false, "a idag ska jag göra ...");
+const firstList = new TheList(false, "Idag ska jag göra klar min ");
+const sList = new TheList(false, "Måste göra ...");
+const doneLists = [];
 
 let lists = [firstList, sList];
+lists.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
 headerHtml(lists);
 // skapar en array av alla månader för att printa de
 // när man anropar date.getmonth() metoden så för man en siffra feån 0-11 och inte namn på månaderna, alltså man får en index
@@ -129,8 +28,6 @@ const months = [
   "November",
   "December",
 ];
-
-//början av main (tag)
 
 let getMonthName = months[d.getMonth()];
 export var mainContent = document.createElement("main");
@@ -153,7 +50,6 @@ dateContainer.appendChild(monthName);
 dateContainer.appendChild(weeksContainer);
 weeksContainer.appendChild(dayContainer);
 
-//en array av alla veckanss dagar
 const days = ["Sön", "Mån", "Tis", "Ons", "Tors", "Fre", "Lör"];
 // loopar genom listan och visar i sidan
 for (let i = 0; i < days.length; i++) {
@@ -164,72 +60,22 @@ for (let i = 0; i < days.length; i++) {
   dayContainer.appendChild(dayLi);
   // if satsen hittagr dagens index och den indexen får en class
   if (i == d.getDay()) {
-    dayLi.classList.add("next");
+    dayLi.classList.add("markToday");
   }
 }
 
-// skriver idag
-/* const todayDivTag = document.createElement("div");
-const divBtnTag = document.createElement("div");
+const listSection = document.createElement("section");
+mainContent.appendChild(listSection);
 
-//todayDivTag.className = "mainContent__todayDivTag";
-divBtnTag.className = "mainContent__todayDivTag--divBtnTag";
-divBtnTag.innerText = "lägga till lista";
+const pTagTitle = document.createElement("p");
+pTagTitle.className = "mainContent__doneListContainer--title";
+pTagTitle.innerText = "Vad behövs göras: ";
+listSection.appendChild(pTagTitle);
 
-mainContent.appendChild(todayDivTag);
-//todayDivTag.appendChild(todayH2Tag);
-todayDivTag.appendChild(divBtnTag);
-
-divBtnTag.addEventListener("click", () => {
-  const divs = document.createElement("div");
-  divs.className = "divs";
-  mainContent.appendChild(divs);
-
-  const labelTag = document.createElement("label");
-  const inputTag = document.createElement("input");
-  const buttonTag = document.createElement("button");
-
-  buttonTag.setAttribute("type", "button");
-  buttonTag.setAttribute("class", "divs__btnTag");
-
-  labelTag.setAttribute("for", "name");
-  labelTag.setAttribute("class", "divs__labelTag");
-
-  inputTag.setAttribute("type", "text");
-  inputTag.setAttribute("id", "name");
-  inputTag.setAttribute("class", "divs__inputTag");
-
-  labelTag.innerHTML = "Ange namn på det som du vill göra! ";
-  buttonTag.innerHTML = "okej";
-
-  divs.appendChild(labelTag);
-  divs.appendChild(inputTag);
-  divs.appendChild(buttonTag);
-
-  buttonTag.addEventListener("click", () => {
-    const inutValue = inputTag.value;
-    var userList = new TheList(false, inutValue);
-    lists.push(userList);
-    createNewElemt();
-  });
-
-  const deleteDivs = document.createElement("img"); // variablen heter div för att i början var det en div sen ändrade jag till img
-  deleteDivs.className = "divs__deleteDivs";
-  deleteDivs.src = xImg;
-  divs.appendChild(deleteDivs);
-
-  deleteDivs.addEventListener("click", () => {
-    divs.remove();
-  });
-}); */
-// skpar en behållare för hela list i main
 const listContainer = document.createElement("div");
 listContainer.className = "mainContent__listContainer";
-mainContent.appendChild(listContainer);
+listSection.appendChild(listContainer);
 
-// skapar två nya lista för att exprementera
-const doneLists = [];
-console.log(doneLists);
 export const createNewElemt = () => {
   listContainer.innerHTML = "";
   for (let i = 0; i < lists.length; i++) {
@@ -239,6 +85,7 @@ export const createNewElemt = () => {
 
     checkbox.addEventListener("click", () => {
       doneLists.push(lists[i]);
+      doneLists.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
       lists.splice(i, 1);
       createNewElemt();
       doneListHtml();
@@ -257,19 +104,16 @@ export const createNewElemt = () => {
     list.appendChild(toDoText);
   }
 };
-console.log("Före anropet:", lists);
+
 createNewElemt();
-console.log("Efter anropet:", lists);
 const doneLisTitle = document.createElement("p");
 doneLisTitle.className = "mainContent__doneListContainer--title";
 doneLisTitle.innerText = "Saker som är klar:";
-mainContent.appendChild(doneLisTitle);
+listSection.appendChild(doneLisTitle);
 
 const doneListContainer = document.createElement("div");
-
 doneListContainer.className = "mainContent__doneListContainer";
-
-mainContent.appendChild(doneListContainer);
+listSection.appendChild(doneListContainer);
 
 const doneListHtml = () => {
   doneListContainer.innerHTML = "";
@@ -282,7 +126,7 @@ const doneListHtml = () => {
     checkbox.addEventListener("click", () => {
       lists.push(doneLists[i]);
       doneLists.splice(i, 1);
-
+      lists.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
       createNewElemt();
       doneListHtml();
     });
