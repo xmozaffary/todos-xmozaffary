@@ -45,12 +45,10 @@ body{
       }
     }
   @include tablet {
-    background-color: blue;
+    background-color: aquamarine;
   }
   @include desktop{
-    max-width: 1280px;
-    text-align: center;
-    background-color: red;
+    background-color: grey;
   }
   }
 
@@ -120,36 +118,6 @@ body{
       justify-content: center;
     }
   }
-  &__listContainer {
-    text-align: left;
-    &--list{
-      display: grid;
-      grid-template-columns: 20% 20% 20% 20% 20%;
-      height: 3rem;
-      justify-items: center;
-      align-items: center;
-      box-shadow: 0 0  3px 0 rgb(0, 0, 0);
-
-      &__checkbox {
-        grid-column: 1 / 2;
-        width: 1rem;
-      }
-      &__toDoText {
-        grid-column: 2 / 5;
-        text-align: right;
-      }
-    }
-  }
-  &__doneListContainer {
-    width: 100vw;
-    height: 50vh;
-    &--title {
-      text-align: center;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      font-weight: bold;
-    }
-  }
 }
 
 .weeksContainer {
@@ -199,3 +167,4 @@ body{
     }
   }
 }
+

@@ -1,7 +1,7 @@
 import { createNewElemt } from "./main";
 import { TheList } from "./models/TheList";
 
-export const headerHtml = (lists) => {
+export const headerHtml = (list) => {
   const d = new Date();
   // börjar med header taggar
   const header = document.createElement("header");
@@ -81,8 +81,8 @@ export const headerHtml = (lists) => {
       buttonTag.addEventListener("click", () => {
         const inutValue = inputTag.value;
         var userList = new TheList(false, inutValue);
-        lists.push(userList);
-        lists.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
+        list.push(userList);
+        list.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
         createNewElemt();
       });
 
