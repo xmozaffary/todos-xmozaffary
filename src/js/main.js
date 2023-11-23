@@ -128,7 +128,6 @@ export const createNewElemt = () => {
     const emptyContainr = document.createElement("p");
     emptyContainr.innerHTML = "Listan är tom";
     emptyContainr.className = "my-2";
-    listContainer.className = "text-center";
     listContainer.appendChild(emptyContainr);
   }
 };
@@ -183,7 +182,6 @@ const doneListHtml = () => {
     const emptyContainr = document.createElement("p");
     emptyContainr.innerHTML = "Listan är tom";
     emptyContainr.className = "my-2";
-    doneListContainer.className = "text-center";
     doneListContainer.appendChild(emptyContainr);
   }
 };
