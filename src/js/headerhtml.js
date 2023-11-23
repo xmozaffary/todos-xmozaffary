@@ -76,11 +76,15 @@ export const headerHtml = (list) => {
       getToDoFromUser.appendChild(buttonTag);
 
       buttonTag.addEventListener("click", () => {
-        const inutValue = inputTag.value;
-        var userList = new TheList(false, inutValue);
-        list.push(userList);
-        list.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
-        createNewElemt();
+        if (inputTag.value == "") {
+          alert("Du måste skriva vad ska du göra!");
+        } else {
+          const inutValue = inputTag.value;
+          var userList = new TheList(false, inutValue);
+          list.push(userList);
+          list.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
+          createNewElemt();
+        }
       });
 
       const deleteDivs = document.createElement("p");
