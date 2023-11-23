@@ -70,8 +70,6 @@ body{
     grid-row: 1 /2;
     width: 40px;
     height: 40px;
-    background-color:darkgray;
-    border-radius: 50%;
   }
   &__btn{
     grid-column: 5 / 6;
@@ -109,13 +107,18 @@ body{
     justify-content: space-evenly;
     &--divBtnTag {
       display: flex;
+      align-items: center;
+      justify-content: center;
       width: 8rem;
       height: 40px;
       background-color:darkgray;
       text-align: right;
       border-radius: 12px;
-      align-items: center;
-      justify-content: center;
+    }
+  }
+  &__doneListContainer{
+    &--title {
+      font-weight: bold;
     }
   }
 }
@@ -159,12 +162,34 @@ body{
   }
   &__makeToDo {
     display: flex;
-    &--icon {
-      width: 1.5rem;
-    }
-    &--title {
-      font-size: 1rem;
+    justify-content: left;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.5rem;
+    &--title{
+      font-size: 1.3rem;
+      margin: 0;
     }
   }
 }
 
+.desktop {
+  @include desktop{
+    display: flex;
+    gap: 2rem;
+    &__row{
+      width: 50%;
+    }
+  }
+}
+
+.bi-x-circle {
+  font-size: 2rem;
+  color: rgb(189, 40, 40);
+  cursor: pointer;
+}
+
+.bi-card-checklist {
+  font-size: 2rem;
+  margin: 0;
+}

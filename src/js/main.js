@@ -12,7 +12,10 @@ let doneList = [];
 let list = [firstList, secoundList];
 list.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
 
-if (JSON.parse(localStorage.getItem("list")) || JSON.parse(localStorage.getItem("doneList"))) {
+if (
+  JSON.parse(localStorage.getItem("list")) ||
+  JSON.parse(localStorage.getItem("doneList"))
+) {
   list = JSON.parse(localStorage.getItem("list"));
   doneList = JSON.parse(localStorage.getItem("doneList"));
 }
@@ -75,29 +78,23 @@ for (let i = 0; i < days.length; i++) {
 
 const listSection = document.createElement("section");
 const listTitle = document.createElement("p");
-listTitle.className = "mainContent__doneListContainer--title";
-listTitle.innerText = "Vad behövs göras: ";
-listSection.appendChild(listTitle);
-
-
 const row = document.createElement("div");
 const col = document.createElement("div");
+const listContainer = document.createElement("div");
 
-listSection.className = "container"
-row.className = "row";
-col.className = "col";
+listTitle.innerText = "Vad behövs göras: ";
+
+listTitle.className = "mainContent__doneListContainer--title";
+listSection.className = "container desktop";
+row.className = "row desktop__row";
+col.className = "col desktop__col";
+listContainer.className = "row gap-2";
 
 mainContent.appendChild(listSection);
 listSection.appendChild(row);
+col.appendChild(listTitle);
 row.appendChild(col);
-
-
-const listContainer = document.createElement("div");
-listContainer.className = "row gap-2";
 col.appendChild(listContainer);
-
-
-
 
 export const createNewElemt = () => {
   listContainer.innerHTML = "";
@@ -106,26 +103,33 @@ export const createNewElemt = () => {
     const listContent = document.createElement("div");
     const checkbox = document.createElement("input");
     const toDoText = document.createElement("p");
-    
+
     checkbox.addEventListener("click", () => {
       doneList.push(list[i]);
       doneList.sort((a, b) => a.whatToDo.localeCompare(b.whatToDo));
       list.splice(i, 1);
       createNewElemt();
-      doneListHtml()
+      doneListHtml();
     });
 
     checkbox.type = "checkbox";
     console.log(list[i]);
     checkbox.checked = list[i].isDone;
     toDoText.innerHTML = list[i].whatToDo;
-    listContent.className = "d-flex gap-3 border col-12"
+    listContent.className = "d-flex gap-3 border col-12 align-items-center";
     checkbox.className = "form-check-input";
-    toDoText.className = "form-check-label";
-    
-    listContainer.appendChild(listContent)
+    toDoText.className = "form-check-label my-2";
+
+    listContainer.appendChild(listContent);
     listContent.appendChild(checkbox);
     listContent.appendChild(toDoText);
+  }
+  if (listContainer.textContent.trim() == "") {
+    const emptyContainr = document.createElement("p");
+    emptyContainr.innerHTML = "Listan är tom";
+    emptyContainr.className = "my-2";
+    listContainer.className = "text-center";
+    listContainer.appendChild(emptyContainr);
   }
 };
 
@@ -134,23 +138,21 @@ createNewElemt();
 const doneLisTitle = document.createElement("p");
 const rowD = document.createElement("div");
 const colD = document.createElement("div");
+const doneListContainer = document.createElement("div");
+
+doneLisTitle.innerText = "Saker som är klar:";
 
 doneLisTitle.className = "mainContent__doneListContainer--title";
-doneLisTitle.innerText = "Saker som är klar:";
-listSection.appendChild(doneLisTitle);
-rowD.className = "row";
+rowD.className = "row desktop__row";
 colD.className = "col";
+doneListContainer.className = "row gap-2";
 
+colD.appendChild(doneLisTitle);
 listSection.appendChild(rowD);
 rowD.appendChild(colD);
-
-const doneListContainer = document.createElement("div");
-doneListContainer.className = "row gap-2";
 colD.appendChild(doneListContainer);
 
-
-
- const doneListHtml = () => {
+const doneListHtml = () => {
   doneListContainer.innerHTML = "";
   localStorage.setItem("doneList", JSON.stringify(doneList));
   for (let i = 0; i < doneList.length; i++) {
@@ -169,14 +171,21 @@ colD.appendChild(doneListContainer);
     toDoText.innerText = doneList[i].whatToDo;
     checkbox.checked = true;
 
-    listContent.className = "d-flex gap-3 border col-12";
+    listContent.className = "d-flex gap-3 border col-12 align-items-center";
     checkbox.className = "form-check-input";
-    toDoText.className = "form-check-label";
+    toDoText.className = "form-check-label my-2";
 
     doneListContainer.appendChild(listContent);
     listContent.appendChild(checkbox);
     listContent.appendChild(toDoText);
   }
-}; 
+  if (doneListContainer.textContent.trim() == "") {
+    const emptyContainr = document.createElement("p");
+    emptyContainr.innerHTML = "Listan är tom";
+    emptyContainr.className = "my-2";
+    doneListContainer.className = "text-center";
+    doneListContainer.appendChild(emptyContainr);
+  }
+};
 
-doneListHtml()
+doneListHtml();

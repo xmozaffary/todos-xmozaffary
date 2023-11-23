@@ -11,7 +11,7 @@ export const headerHtml = (list) => {
 
   userImg.src =
     "https://www.shareicon.net/data/512x512/2016/05/24/770046_people_512x512.png";
-  userName.innerText = "HEJ NAME";
+  userName.innerText = "HEJ NAMN";
   humMenu.className = "header__humMenu";
   header.className = "header";
   userName.className = "header__name";
@@ -28,17 +28,13 @@ export const headerHtml = (list) => {
   }
   humMenu.addEventListener("click", () => {
     const humMenuContent = document.createElement("section");
-    const humMenuContentRemove = document.createElement("img");
+    const humMenuContentRemove = document.createElement("p");
     const makeToDo = document.createElement("div");
-    const makeToDoIcon = document.createElement("img");
+    const makeToDoIcon = document.createElement("p");
     const makeToDoTitle = document.createElement("h2");
 
-    humMenuContentRemove.src =
-      "https://img.freepik.com/premium-vector/xgrunge-letter-x-vector-cross-sign-hand-drawn-x_546559-33.jpg";
-    makeToDoTitle.innerText = "lägga till lista";
-    makeToDoIcon.src =
-      "https://www.freeiconspng.com/thumbs/list-icon/to-do-list-icon-buy-this-icon-for--0-48-1.png";
-
+    // humMenuContentRemove.className = "bi bi-send";
+    makeToDoTitle.innerText = "Skapa en Todo";
     document.body.appendChild(humMenuContent);
     humMenuContent.appendChild(humMenuContentRemove);
     humMenuContent.appendChild(makeToDo);
@@ -46,9 +42,10 @@ export const headerHtml = (list) => {
     makeToDo.appendChild(makeToDoTitle);
 
     humMenuContent.className = "humMenuContent";
-    humMenuContentRemove.className = "humMenuContent__remove";
+    humMenuContentRemove.className = "humMenuContent__remove bi bi-x-circle";
     makeToDo.className = "humMenuContent__makeToDo";
-    makeToDoIcon.className = "humMenuContent__makeToDo--icon";
+    makeToDoIcon.className =
+      "humMenuContent__makeToDo--icon bi bi-card-checklist";
     makeToDoTitle.className = "humMenuContent__makeToDo--title";
 
     makeToDo.addEventListener("click", () => {
@@ -86,10 +83,8 @@ export const headerHtml = (list) => {
         createNewElemt();
       });
 
-      const deleteDivs = document.createElement("img");
-      deleteDivs.className = "getToDoFromUser__deleteDivs";
-      deleteDivs.src =
-        "https://img.freepik.com/premium-vector/xgrunge-letter-x-vector-cross-sign-hand-drawn-x_546559-33.jpg";
+      const deleteDivs = document.createElement("p");
+      deleteDivs.className = "getToDoFromUser__deleteDivs bi bi-x-circle";
       getToDoFromUser.appendChild(deleteDivs);
 
       deleteDivs.addEventListener("click", () => {
